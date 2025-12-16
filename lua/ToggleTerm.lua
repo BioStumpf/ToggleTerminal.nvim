@@ -28,7 +28,7 @@ end
 local function resize_term()
 	if win.window and vim.api.nvim_win_is_valid(win.window) then
 		local size = math.floor(win.scale * vim.o.lines)
-		vim.api.nvim_win_call(win.window, function (os.getenv("SHELL")) vim.cmd("noautocmd resize " .. size) end)
+		vim.api.nvim_win_call(win.window, function () vim.cmd("noautocmd resize " .. size) end)
 	end
 end
 
