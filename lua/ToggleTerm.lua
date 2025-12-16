@@ -15,7 +15,7 @@ end
 
 local function open_term_buff(win)
     win.buf = vim.api.nvim_create_buf(false, true)
-	vim.api.nvim_buf_call(win.buf, function() vim.fn.termopen("bash") end)
+	vim.api.nvim_buf_call(win.buf, function() vim.fn.termopen() end)
 end
 
 local function buf_to_window(win, ratio)
@@ -28,7 +28,7 @@ end
 local function resize_term()
 	if win.window and vim.api.nvim_win_is_valid(win.window) then
 		local size = math.floor(win.scale * vim.o.lines)
-		vim.api.nvim_win_call(win.window, function () vim.cmd("noautocmd resize " .. size) end)
+		vim.api.nvim_win_call(win.window, function (os.getenv("SHELL")) vim.cmd("noautocmd resize " .. size) end)
 	end
 end
 
@@ -38,7 +38,6 @@ local function rescale_term()
 		local expected_height = math.floor(win.scale * vim.o.lines)
 		if current_height ~= expected_height then
 			win.scale = current_height / vim.o.lines
-			print("Scale: " .. win.scale)
 		end
 	end
 end
