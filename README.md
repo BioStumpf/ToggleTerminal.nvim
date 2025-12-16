@@ -11,11 +11,11 @@ Since this plugin is extremely basic, it does not posess a setup function. The o
 For lazy.nvim:
 ```
 return {
-	{ dir = "toggle_term.nvim/",
+	"BioStumpf/ToggleTerminal.nvim",
+	lazy = false,
 	keys = {
 		{"<leader>tt", function() require("toggle_term").toggle_term(0.3) end },
 		{"<leader>tt", function() require("toggle_term").toggle_term(0.3) end, mode = "t" }
-		}
 	}
 }
 ```
