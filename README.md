@@ -1,14 +1,15 @@
 # ToggleTerminal.nvim
-This repository hosts a very simple terminal for nvim
+A minimal, toggleable terminal for Neovim.
 
 ## What it can do:
-The key function is the toggle_term(scale) function. Scale can be any number between 0 and 1, it specifies how much space the terminal split window takes up proportional to nvims total window size.   
-ToggleTermal also enables felxible vertical resizing of the terminal window, if using :resize x, it remembers the altered scale.   
-If minimizing/ draging, the terminal window keeps this proportional scale. Note however that it only keeps proportion of the terminal window itself, not any other split window, which may lead to distorting split arrangments during drag/ minimizing the vim window.
+The core functionality is provided by the toggle_term(scale) function. The scale parameter accepts a value between 0 and 1, determining the portion of the Neovim window that the terminal split occupies.    
+
+ToggleTerminal.nvim also supports flexible vertical resizing: if you adjust the terminal with :resize x (or drag it), it will remember the new scale. When changing the total terminal window size, the proportional scale is preserved. Note that this scaling applies only to the terminal itself, not other split windows, which may cause layout distortions when resizing or minimizing the Neovim window.
 
 ## Setup
-Since this plugin is extremely basic, it does not posess a setup function. The only thing that needs to be specified are the keybindings for toggling.   
-For lazy.nvim:
+This plugin is intentionally minimal and does not include a setup function. The only required configuration is defining your keybindings for toggling the terminal.
+
+For lazy.nvim users:
 ```
 return {
 	"BioStumpf/ToggleTerminal.nvim",
