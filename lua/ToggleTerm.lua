@@ -1,6 +1,8 @@
+--module table, containing the window and the terminal buffer, but also tracks the scaling of the window (0 - 1) and window height to enable resizing as a reaction of changing the vim/terminal size
 M = {}
 local win = { window = nil, buf = nil, scale = nil, tot_height = nil}
 
+--open window computes the terminal height based on the user given scale and opens a split window
 local function open_window(win)
 	local term_height = math.floor(win.scale * win.tot_height) 
 	vim.cmd("botright split")
@@ -8,16 +10,19 @@ local function open_window(win)
 	win.window = vim.api.nvim_get_current_win()
 end
 
+--close window resets window to nil
 local function close_window(win)
 	vim.api.nvim_win_close(win.window, true)
 	win.window = nil
 end
 
+--opens a new buffer and adds the user default terminal to it
 local function open_term_buff(win)
     win.buf = vim.api.nvim_create_buf(false, true)
 	vim.api.nvim_buf_call(win.buf, function() vim.fn.termopen(os.getenv("SHELL")) end)
 end
 
+--opens the window and attaches the terminal buffer to it
 local function buf_to_window(win, ratio)
 	open_window(win)
 	vim.api.nvim_win_set_buf(win.window, win.buf)
@@ -32,6 +37,7 @@ local function resize_term()
 	end
 end
 
+--this is to ensure, that the running the :resize x command on the terminal split window changes the win.scale variable, allowing toggling the terminal using the new size
 local function rescale_term()
 	if win.window and vim.api.nvim_win_is_valid(win.window) then
 		local current_height = vim.api.nvim_win_get_height(win.window)
@@ -42,6 +48,8 @@ local function rescale_term()
 	end
 end
 
+--this function combines both resizing and rescaling (both tiggered as autocommands when windows are resized)
+--see plugin/ folder for usage
 function M.rescale_resize_term()
 	local old_tot_height = win.tot_height
 	win.tot_height = vim.o.lines
