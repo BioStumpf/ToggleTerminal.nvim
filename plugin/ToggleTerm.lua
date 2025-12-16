@@ -1,4 +1,4 @@
-local term = require("toggle_term")
+local term = require("ToggleTerm")
 
 vim.api.nvim_create_autocmd("WinResized", {
 		callback = function ()
