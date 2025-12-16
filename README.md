@@ -14,8 +14,8 @@ return {
 	"BioStumpf/ToggleTerminal.nvim",
 	lazy = false,
 	keys = {
-		{"<leader>tt", function() require("toggle_term").toggle_term(0.3) end },
-		{"<leader>tt", function() require("toggle_term").toggle_term(0.3) end, mode = "t" }
+		{"<leader>tt", function() require("ToggleTerm").toggle_term(0.3) end },
+		{"<leader>tt", function() require("ToggleTerm").toggle_term(0.3) end, mode = "t" }
 	}
 }
 ```
